@@ -1,0 +1,15 @@
+[package]
+name = "marketplace_backend"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+actix = "2.3.0"
+actix-web = "3.3.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+r2d2 = "0.8.9"
+tokio = { version = "1.5", features = ["full"] }
+dotenv = "0.15"
+chrono = "0.4.19"
+diesel = { version = "1", features = ["sqlite"] }
