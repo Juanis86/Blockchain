@@ -1,0 +1,59 @@
+// src/components/formulario_creacion_contrato.rs
+use yew::prelude::*;
+
+pub struct FormularioCreacionContrato {
+    link: ComponentLink<Self>,
+    title: String,
+    description: String,
+    category: String,
+}
+
+pub enum Msg {
+    UpdateTitle(String),
+    UpdateDescription(String),
+    UpdateCategory(String),
+    Submit,
+}
+
+impl Component for FormularioCreacionContrato {
+    type Message = Msg;
+    type Properties = ();
+
+    fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+        FormularioCreacionContrato {
+            link,
+            title: String::new(),
+            description: String::new(),
+            category: String::new(),
+        }
+    }
+
+    fn update(&mut self, msg: Self::Message) -> ShouldRender {
+        match msg {
+            Msg::UpdateTitle(title) => self.title = title,
+            Msg::UpdateDescription(description) => self.description = description,
+            Msg::UpdateCategory(category) => self.category = category,
+            Msg::Submit => {
+                // Lógica para enviar los datos del contrato al backend
+            }
+        }
+        true
+    }
+
+    fn view(&self) -> Html {
+        html! {
+            <form onsubmit=self.link.callback(|e| {
+                e.prevent_default();
+                Msg::Submit
+            })>
+                <input type="text" placeholder="Título" value=&self.title
+                    oninput=self.link.callback(|e: InputData| Msg::UpdateTitle(e.value)) />
+                <textarea placeholder="Descripción" value=&self.description
+                    oninput=self.link.callback(|e: InputData| Msg::UpdateDescription(e.value)) />
+                <input type="text" placeholder="Categoría" value=&self.category
+                    oninput=self.link.callback(|e: InputData| Msg::UpdateCategory(e.value)) />
+                <button type="submit">{"Crear Contrato"}</button>
+            </form>
+        }
+    }
+}
